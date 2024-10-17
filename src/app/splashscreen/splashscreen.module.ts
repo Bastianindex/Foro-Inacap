@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
+
+import { SplashscreenPageRoutingModule } from './splashscreen-routing.module';
+
+import { SplashscreenPage } from './splashscreen.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    SplashscreenPageRoutingModule
   ],
-  declarations: [LoginPage]
+  declarations: [SplashscreenPage]
 })
-export class LoginPageModule {}
+export class SplashscreenPageModule {}

@@ -7,11 +7,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar class="custom-toolbar">
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <!-- Este código crea un botón de acción flotante (FAB) posicionado en la parte inferior derecha de la pantalla.
+       Al hacer clic, navega a la ruta 'add-post'.
+       El botón contiene un ícono con el símbolo 'add'. -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="'add-post'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- 
+  <ion-list> crea la lista y <ion-item-sliding> permite deslizar el elemento para opciones adicionales. Dentro del elemento deslizante, hay un <ion-item> 
+  sin padding que contiene un <ion-label> con un encabezado (<h2>) y un párrafo (<p>)
+  para mostrar contenido de texto.-->
+  <ion-list lines="none">
+    <ion-item-sliding>
+      <ion-item class="no-padding">
+        <ion-label>
+          <h2>titulo</h2>
+          <p>detalle</p>
+        </ion-label>
+        
+      </ion-item>
+
+      <!-- 
+      Este fragmento de código define opciones de ítem en un componente de Ionic.
+      Utiliza el componente <ion-item-options> para crear opciones de ítem en el lado "start" (inicio).
+      Dentro de estas opciones, se incluye un icono de lápiz (pencil-outline) que se muestra solo como icono.-->
+      <ion-item-options side="start">
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <!--
+      Este código define opciones de ítem en un componente de Ionic.
+      Las opciones se muestran en el lado derecho ("end") del ítem.
+      Se especifica una opción con color "danger" (rojo) que contiene un ícono de basura ("trash").
+      Esta opción podría usarse, por ejemplo, para eliminar un ítem.
+      -->
+      <ion-item-options side="end">
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
   <div id="container">
     <strong>Ready to create an app?</strong>
