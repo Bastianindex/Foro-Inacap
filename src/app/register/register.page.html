@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="danger">
+  <ion-toolbar style="-danger-shade: #ff0000;">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -14,7 +14,16 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    <ion-input type="password" [(ngModel)]="user.password">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label position="floating">Confirmar Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="user.confirmPassword">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input>
+  </ion-item>
+  <ion-text color="danger" *ngIf="passwordMismatch">Las contraseñas no coinciden</ion-text>
   <ion-button expand="full" color="primary" (click)="register()">Register</ion-button>
 </ion-content>
