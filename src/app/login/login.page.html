@@ -19,11 +19,11 @@
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>Recordar mis datos</ion-label>
+        <ion-checkbox [(ngModel)]="user.rememberMe" name="rememberMe"></ion-checkbox>
+      </ion-item>
       <ion-button expand="full" type="submit">Iniciar Sesión</ion-button>
     </form>
-    <div class="login-footer" style="display: flex; justify-content: space-between; margin-top: 20px;">
-      <a href="/forgot-password" style="color: #3880ff; text-decoration: none;">Olvidé mi contraseña</a>
-      <a href="/register" style="color: #3880ff; text-decoration: none;">Registrarse</a>
-    </div>
   </div>
-</ion-content>
+</ion-content> 

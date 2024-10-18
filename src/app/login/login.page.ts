@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from '../models/user.model';
-import { LoadingController, NavController, ToastController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,62 +7,35 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  user: User = {
+  user = {
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   };
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private navCtrl: NavController,
-    private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
-  ) {}
+  constructor(private router: Router) {}
 
-  async login() {
-    if (this.formValidation()) {
-      let loader = await this.loadingCtrl.create({
-        message: "Espere por Favor"
-      });
-      await loader.present();
-
-      try {
-        const data = await this.afAuth.signInWithEmailAndPassword(this.user.email, this.user.password);
-        console.log(data);
-        await loader.dismiss();
-        this.navCtrl.navigateRoot("home"); // Redirigir a la página principal
-      } catch (error: any) {
-        await loader.dismiss();
-        console.error(error);
-        let errorMessage = 'Error al iniciar sesión';
-        if (error.code) {
-          switch (error.code) {
-            case 'auth/user-not-found':
-              errorMessage = 'Usuario no encontrado';
-              break;
-            case 'auth/wrong-password':
-              errorMessage = 'Contraseña incorrecta';
-              break;
-            case 'auth/invalid-email':
-              errorMessage = 'El correo electrónico no es válido';
-              break;
-          }
-        }
-        const toast = await this.toastCtrl.create({
-          message: errorMessage,
-          duration: 2000
-        });
-        toast.present();
-      }
+  login() {
+    if (this.user.rememberMe) {
+      localStorage.setItem('userEmail', this.user.email);
+      localStorage.setItem('userPassword', this.user.password);
+    } else {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPassword');
     }
+
+    // Aquí puedes agregar la lógica para autenticar al usuario
+    console.log('Iniciar sesión', this.user);
+    this.router.navigate(['/home']); // Redirigir a la página de inicio
   }
 
-  formValidation() {
-    // Implementa la validación del formulario aquí
-    return true;
-  }
-
-  navigateToRegister() {
-    this.navCtrl.navigateForward('register');
+  ionViewWillEnter() {
+    const savedEmail = localStorage.getItem('userEmail');
+    const savedPassword = localStorage.getItem('userPassword');
+    if (savedEmail && savedPassword) {
+      this.user.email = savedEmail;
+      this.user.password = savedPassword;
+      this.user.rememberMe = true;
+    }
   }
 }

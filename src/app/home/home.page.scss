@@ -29,3 +29,13 @@
 ion-item-sliding{
   border-bottom: 1px solid rgba(0,0,0,0.13);
 }
+
+/*Estos estilos se aplican al componente ion-menu en una aplicación Ionic.*/
+ion-menu::part(backdrop) {  /*El selector ::part(backdrop) apunta a la parte del fondo del ion-menu, estableciendo su color de fondo a un magenta semi-transparente.*/
+  background-color: rgba(236, 13, 31, 0.5);
+}
+
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0; /*El selector ::part(container) apunta a la parte del contenedor del ion-menu, aplicando un radio de borde en el lado derecho y agregando una sombra de caja magenta para un efecto 3D sutil.*/
+  box-shadow: 4px 0px 16px rgba(243, 2, 2, 0.938);
+}
