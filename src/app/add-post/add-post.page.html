@@ -26,4 +26,8 @@
   <ion-button expand="block" (click)="addPost()" class="ion-margin-top">
     Agregar Post
   </ion-button>
+
+  <ion-item *ngIf="errorMessage" color="danger">
+    <ion-label>{{ errorMessage }}</ion-label>
+  </ion-item>
 </ion-content>

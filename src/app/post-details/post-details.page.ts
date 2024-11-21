@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../services/post.service';
 import { CommentService } from '../services/comment.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Post } from '../models/post.model';
 import { Comment } from '../models/comment.model';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-post-details',
@@ -15,6 +15,7 @@ export class PostDetailsPage implements OnInit {
   post: Post | null = null;
   comments: Comment[] = [];
   newCommentText: string = '';
+  postId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +27,11 @@ export class PostDetailsPage implements OnInit {
   ngOnInit() {
     const postId = this.route.snapshot.paramMap.get('id');
     if (postId) {
+      this.postId = postId;
       this.loadPost(postId);
       this.loadComments(postId);
+    } else {
+      console.error('ID de post no válido');
     }
   }
 
@@ -43,6 +47,7 @@ export class PostDetailsPage implements OnInit {
   }
 
   loadComments(postId: string) {
+    console.log('Cargando comentarios para el post ID:', postId);
     this.commentService.getComments(postId).subscribe(
       (comments: Comment[]) => {
         this.comments = comments;
@@ -54,6 +59,10 @@ export class PostDetailsPage implements OnInit {
   }
 
   async addComment() {
+    if (!this.postId) {
+      console.error('El post ID no está definido');
+      return;
+    }
     if (this.post && this.newCommentText.trim() !== '') {
       const user = await this.afAuth.currentUser;
       if (user) {

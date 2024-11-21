@@ -46,7 +46,7 @@ export class RegisterPage {
     try {
       await this.afAuth.createUserWithEmailAndPassword(email, password);
       alert('Registro exitoso. Ahora puede iniciar sesión.');
-      this.router.navigate(['/login']); // Cambiado de '/home' a '/login'
+      this.router.navigate(['/login']);
     } catch (error: any) {
       let errorMessage = 'Error al registrar el usuario';
       if (error.code) {

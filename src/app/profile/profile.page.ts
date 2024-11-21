@@ -1,10 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirebaseError } from '@angular/fire/app';
-import { NavController } from '@ionic/angular';
-import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,11 +12,11 @@ export class ProfilePage {
   user: any;
   editMode: boolean = false;
   profileForm: FormGroup;
-  showPassword: boolean = false; // Para mostrar/ocultar la nueva contraseña
+  showPassword: boolean = false; // Para mostrar/ocultar la contraseña
   showConfirmPassword: boolean = false; // Para mostrar/ocultar la confirmación de contraseña
   @Output() profileUpdated = new EventEmitter<any>();
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder, private navCtrl: NavController, private profileService: ProfileService) {
+  constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder) {
     this.loadUserProfile();
     this.profileForm = this.fb.group({
       displayName: ['', Validators.required],
@@ -50,6 +47,10 @@ export class ProfilePage {
     this.editMode = !this.editMode;
   }
 
+  goBack() {
+    this.router.navigate(['/home']);
+  }
+
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
   }
@@ -60,45 +61,24 @@ export class ProfilePage {
 
   async updateProfile() {
     if (this.profileForm.valid) {
-      const { displayName, email, password, confirmPassword } = this.profileForm.value;
+      const { displayName, email, password } = this.profileForm.value;
+      const user = await this.afAuth.currentUser;
 
-      if (password && password !== confirmPassword) {
-        alert('Las contraseñas no coinciden');
-        return;
-      }
-
-      try {
-        const user = await this.afAuth.currentUser;
-        if (user) {
+      if (user) {
+        try {
           await user.updateProfile({ displayName });
-          if (email !== user.email) {
-            await user.updateEmail(email);
-          }
+          await user.updateEmail(email);
           if (password) {
             await user.updatePassword(password);
           }
-          this.profileService.updateProfile({ displayName: displayName });
           alert('Perfil actualizado con éxito');
           this.editMode = false;
-          this.loadUserProfile(); // Recargar el perfil
+          this.loadUserProfile();
+        } catch (error) {
+          console.error('Error al actualizar el perfil:', error);
+          alert('Error al actualizar el perfil');
         }
-      } catch (error: unknown) {
-        let errorMessage = 'Error al actualizar el perfil';
-        if (error instanceof FirebaseError) {
-          errorMessage = error.message;
-        }
-        alert(errorMessage);
       }
     }
-  }
-
-  logout() {
-    this.afAuth.signOut().then(() => {
-      this.router.navigate(['/login']);
-    });
-  }
-
-  goBack() {
-    this.navCtrl.back();
   }
 }

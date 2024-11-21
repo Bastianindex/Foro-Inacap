@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { PostService } from '../services/post.service';
-import { Post } from '../models/post.model';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Post } from '../models/post.model';
 
 @Component({
   selector: 'app-add-post',
@@ -18,6 +18,7 @@ export class AddPostPage {
     username: '',
     timestamp: 0
   };
+  errorMessage: string = '';
 
   constructor(
     private postService: PostService,
@@ -26,24 +27,31 @@ export class AddPostPage {
   ) {}
 
   async addPost() {
-    if (this.newPost.title && this.newPost.content) {
+    this.errorMessage = '';
+
+    if (this.validatePost()) {
       const user = await this.afAuth.currentUser;
       if (user) {
         this.newPost.userId = user.uid;
         this.newPost.username = user.displayName || user.email || 'Usuario anónimo';
         this.newPost.timestamp = Date.now();
 
-        this.postService.addPost(this.newPost).then(() => {
-          console.log('Post added successfully');
+        try {
+          await this.postService.addPost(this.newPost);
+          console.log('Post agregado con éxito');
           this.router.navigate(['/home']);
-        }).catch(error => {
+        } catch (error) {
           console.error('Error al agregar post:', error);
-        });
+          this.errorMessage = 'Ocurrió un error al agregar el post. Inténtalo de nuevo más tarde.';
+        }
       } else {
         console.error('Usuario no autenticado');
+        this.errorMessage = 'Debes estar autenticado para agregar un post.';
       }
-    } else {
-      console.log('Por favor, completa todos los campos requeridos');
     }
+  }
+
+  validatePost(): boolean {
+    return this.newPost.title.trim() !== '' && this.newPost.content.trim() !== '';
   }
 }

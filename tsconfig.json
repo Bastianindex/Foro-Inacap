@@ -16,11 +16,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "module": "esnext",
-    "lib": [
-      "es2018", 
-      "dom"
-    ],
+    "module": "commonjs",
+    "lib": ["es2018", "dom"],
+    "types": ["firebase","jasmine", "node"],
     "useDefineForClassFields": false,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,

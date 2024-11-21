@@ -2,9 +2,10 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    mocha: true, // Si estás usando Mocha para pruebas
   },
   parserOptions: {
-    "ecmaVersion": 2018,
+    ecmaVersion: 2020, // Actualiza a la versión de ECMAScript que necesites
   },
   extends: [
     "eslint:recommended",

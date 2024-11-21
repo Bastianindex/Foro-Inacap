@@ -13,6 +13,7 @@ export class CommentsPage implements OnInit {
   comments: Comment[] = [];
   newCommentText: string = '';
   postId: string = ''; // Inicializar con un valor por defecto
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class CommentsPage implements OnInit {
         },
         error => {
           console.error('Error al cargar comentarios:', error);
+          this.errorMessage = 'Error al cargar comentarios';
         }
       );
     }
@@ -73,5 +75,10 @@ export class CommentsPage implements OnInit {
     }).catch(error => {
       console.error('Error al agregar comentario:', error);
     });
+  }
+
+  loadMoreComments(event: any) {
+    // Lógica para cargar más comentarios
+    event.target.complete();
   }
 }

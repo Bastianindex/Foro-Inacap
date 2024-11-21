@@ -21,4 +21,13 @@
     <ion-input [(ngModel)]="newCommentText" placeholder="Escribe un comentario..."></ion-input>
     <ion-button (click)="addComment()">Comentar</ion-button>
   </ion-item>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreComments($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más comentarios...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-item *ngIf="errorMessage" color="danger">
+    <ion-label>{{ errorMessage }}</ion-label>
+  </ion-item>
 </ion-content>
