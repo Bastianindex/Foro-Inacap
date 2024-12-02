@@ -1,28 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>Login</ion-title> <!-- Título de la página de inicio de sesión -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="login-content">
   <div class="login-container">
     <div class="login-header">
-      <img src="assets/inacaplogo.png" alt="Logo" class="login-logo">
-      <h1>Iniciar Sesión</h1>
+      <img src="assets/inacaplogo.png" alt="Logo" class="login-logo"> <!-- Logo de la página de inicio de sesión -->
+      <h1>Iniciar Sesión</h1> <!-- Título de la página de inicio de sesión -->
     </div>
-    <form (ngSubmit)="login()">
+    <form (ngSubmit)="login()"> <!-- Formulario para iniciar sesión -->
       <ion-item>
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input>
+        <ion-label position="floating">Correo Electrónico</ion-label> <!-- Campo de entrada para el correo electrónico -->
+        <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input> <!-- Campo de entrada para el correo electrónico -->
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
+        <ion-label position="floating">Contraseña</ion-label> <!-- Campo de entrada para la contraseña -->
         <ion-input type="password" [(ngModel)]="user.password" name="password">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle> <!-- Botón para mostrar/ocultar la contraseña -->
         </ion-input>
       </ion-item>
-      <ion-button expand="full" type="submit">Iniciar Sesión</ion-button>
-      <ion-button expand="full" routerLink="/register">Registrarse</ion-button>
+      <ion-button expand="full" type="submit">Iniciar Sesión</ion-button> <!-- Botón para iniciar sesión -->
+      <ion-button expand="full" routerLink="/register">Registrarse</ion-button> <!-- Botón para ir a la página de registro -->
     </form>
   </div>
 </ion-content>

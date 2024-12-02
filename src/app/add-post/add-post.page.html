@@ -1,33 +1,33 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button> <!-- Botón de regreso a la página de inicio -->
     </ion-buttons>
-    <ion-title>Agregar Post</ion-title>
+    <ion-title>Agregar Post</ion-title> <!-- Título de la página -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-item>
-    <ion-label position="floating">Título</ion-label>
-    <ion-input [(ngModel)]="newPost.title" required></ion-input>
+    <ion-label position="floating">Título</ion-label> <!-- Etiqueta para el título -->
+    <ion-input [(ngModel)]="newPost.title" required></ion-input> <!-- Entrada para el título, requerido -->
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Contenido</ion-label>
-    <ion-textarea [(ngModel)]="newPost.content" rows="6" required></ion-textarea>
+    <ion-label position="floating">Contenido</ion-label> <!-- Etiqueta para el contenido -->
+    <ion-textarea [(ngModel)]="newPost.content" rows="6" required></ion-textarea> <!-- Entrada para el contenido, requerido -->
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Detalle</ion-label>
-    <ion-input [(ngModel)]="newPost.detail"></ion-input>
+    <ion-label position="floating">Detalle</ion-label> <!-- Etiqueta para el detalle -->
+    <ion-input [(ngModel)]="newPost.detail"></ion-input> <!-- Entrada para el detalle -->
   </ion-item>
 
   <ion-button expand="block" (click)="addPost()" class="ion-margin-top">
-    Agregar Post
+    Agregar Post <!-- Botón para agregar el post -->
   </ion-button>
 
   <ion-item *ngIf="errorMessage" color="danger">
-    <ion-label>{{ errorMessage }}</ion-label>
+    <ion-label>{{ errorMessage }}</ion-label> <!-- Mensaje de error, visible solo si hay un error -->
   </ion-item>
 </ion-content>

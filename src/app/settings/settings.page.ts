@@ -14,27 +14,29 @@ export class SettingsPage {
   };
 
   constructor(private platform: Platform) {
-    this.loadSettings();
+    this.loadSettings(); // Llamada al método para cargar las configuraciones al inicializar la página
   }
 
   loadSettings() {
-    // Cargar configuraciones desde almacenamiento local o establecer valores predeterminados
-    const darkMode = localStorage.getItem('darkMode') === 'true';
-    this.settings.darkMode = darkMode;
-    this.applyTheme(darkMode);
+    // Este método carga las configuraciones actuales desde el almacenamiento local, si no hay configuraciones, se establecen los valores predeterminados.
+    const darkMode = localStorage.getItem('darkMode') === 'true'; // Se verifica si el modo oscuro está activado en el almacenamiento local
+    this.settings.darkMode = darkMode; // Se asigna el valor de darkMode a las configuraciones
+    this.applyTheme(darkMode); // Se aplica el tema según el valor de darkMode
   }
 
   saveSettings() {
-    localStorage.setItem('darkMode', this.settings.darkMode.toString());
-    this.applyTheme(this.settings.darkMode);
+    // Este método guarda las configuraciones actuales en el almacenamiento local.
+    localStorage.setItem('darkMode', this.settings.darkMode.toString()); // Se guarda el valor de darkMode como una cadena en el almacenamiento local
+    this.applyTheme(this.settings.darkMode); // Se aplica el tema según el valor de darkMode
   }
 
   applyTheme(isDark: boolean) {
-    const body = document.body;
+    // Este método aplica o quita el tema oscuro según el parámetro isDark.
+    const body = document.body; // Se obtiene el elemento body del documento
     if (isDark) {
-      body.classList.add('dark-theme');
+      body.classList.add('dark-theme'); // Si isDark es verdadero, se agrega la clase 'dark-theme' al body
     } else {
-      body.classList.remove('dark-theme');
+      body.classList.remove('dark-theme'); // Si isDark es falso, se quita la clase 'dark-theme' del body
     }
   }
 }

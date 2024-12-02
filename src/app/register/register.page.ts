@@ -15,12 +15,13 @@ export class RegisterPage {
     password: '',
     confirmPassword: ''
   };
-  passwordMismatch = false;
-  registerForm: FormGroup;
+  passwordMismatch = false; // Variable para indicar si las contraseñas no coinciden
+  registerForm: FormGroup; // Formulario de registro
   showPassword: boolean = false; // Para mostrar/ocultar la contraseña
   showConfirmPassword: boolean = false; // Para mostrar/ocultar la confirmación de contraseña
 
   constructor(private router: Router, private afAuth: AngularFireAuth, private fb: FormBuilder) {
+    // Creación del formulario de registro con validaciones
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -29,25 +30,31 @@ export class RegisterPage {
   }
 
   async register() {
+    // Reinicia la variable de coincidencia de contraseñas
     this.passwordMismatch = false;
 
+    // Verifica si el formulario es inválido
     if (this.registerForm.invalid) {
       alert('Por favor, complete todos los campos correctamente.');
       return;
     }
 
+    // Obtener los valores del formulario
     const { email, password, confirmPassword } = this.registerForm.value;
 
+    // Verificar si las contraseñas coinciden
     if (password !== confirmPassword) {
-      this.passwordMismatch = true;
+      this.passwordMismatch = true; // Si no coinciden, marca como verdadero
       return;
     }
 
+    // Intentar registrar el usuario
     try {
       await this.afAuth.createUserWithEmailAndPassword(email, password);
       alert('Registro exitoso. Ahora puede iniciar sesión.');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']); // Redirigir al login después del registro
     } catch (error: any) {
+      // Manejo de errores de registro
       let errorMessage = 'Error al registrar el usuario';
       if (error.code) {
         switch (error.code) {
@@ -70,10 +77,12 @@ export class RegisterPage {
   }
 
   toggleShowPassword() {
+    // Cambia el estado de mostrar/ocultar la contraseña
     this.showPassword = !this.showPassword;
   }
 
   toggleShowConfirmPassword() {
+    // Cambia el estado de mostrar/ocultar la confirmación de contraseña
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 }

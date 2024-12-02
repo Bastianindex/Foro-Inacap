@@ -1,11 +1,15 @@
 <ion-menu content-id="main-content">
+  <!-- El encabezado del menú -->
   <ion-header>
     <ion-toolbar color="danger">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- El contenido del menú -->
   <ion-content class="ion-padding">
+    <!-- La lista de opciones del menú -->
     <ion-list>
+      <!-- Opción de perfil del usuario -->
       <ion-item>
         <ion-avatar slot="start">
           <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -15,15 +19,18 @@
           <p>usuario&#64;correo.com</p>
         </ion-label>
       </ion-item>
+      <!-- Enlace a la página de perfil -->
       <ion-item button [routerLink]="['/profile']">
         <ion-icon name="person" slot="start"></ion-icon>
         <ion-label>Perfil</ion-label>
       </ion-item>
+      <!-- Enlace a la página de configuración -->
       <ion-item button [routerLink]="['/settings']">
         <ion-icon name="settings" slot="start"></ion-icon>
         <ion-label>Configuración</ion-label>
       </ion-item>
     </ion-list>
+    <!-- Botón para cerrar sesión -->
     <ion-button expand="block" color="danger" (click)="logout()">
       <ion-icon name="log-out" slot="start"></ion-icon>
       Cerrar Sesión

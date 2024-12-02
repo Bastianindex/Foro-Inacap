@@ -20,31 +20,31 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadPosts();
+    this.loadPosts(); // Carga los posts al iniciar el componente
   }
 
   loadPosts() {
     this.postService.getPosts().subscribe(
       (posts: Post[]) => {
-        this.posts = posts;
+        this.posts = posts; // Asigna los posts cargados a la propiedad posts
       },
       error => {
-        console.error('Error al cargar posts:', error);
+        console.error('Error al cargar posts:', error); // Muestra un error en la consola si falla la carga de posts
       }
     );
   }
 
   goToPostDetails(postId: string | undefined) {
     if (postId) {
-      this.router.navigate(['/post-details', postId]);
+      this.router.navigate(['/post-details', postId]); // Navega a la página de detalles del post si el ID es válido
     } else {
-      console.error('ID de post no válido');
+      console.error('ID de post no válido'); // Muestra un error en la consola si el ID de post es inválido
     }
   }
 
   async addPost() {
     if (this.newPostContent.trim() !== '') {
-      const user = await this.afAuth.currentUser;
+      const user = await this.afAuth.currentUser; // Obtiene el usuario actual
       if (user) {
         const newPost: Post = {
           title: 'Nuevo Post',
@@ -55,14 +55,14 @@ export class HomePage implements OnInit {
           timestamp: Date.now()
         };
         this.postService.addPost(newPost).then(() => {
-          console.log('Post agregado con éxito');
-          this.newPostContent = '';
-          this.loadPosts();
+          console.log('Post agregado con éxito'); // Muestra un mensaje de éxito en la consola
+          this.newPostContent = ''; // Limpia el contenido del nuevo post
+          this.loadPosts(); // Vuelve a cargar los posts para incluir el nuevo
         }).catch(error => {
-          console.error('Error al agregar post:', error);
+          console.error('Error al agregar post:', error); // Muestra un error en la consola si falla la adición del post
         });
       } else {
-        console.error('Usuario no autenticado');
+        console.error('Usuario no autenticado'); // Muestra un error en la consola si el usuario no está autenticado
       }
     }
   }

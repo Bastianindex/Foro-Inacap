@@ -1,3 +1,12 @@
+// Esta interfaz define la estructura de un post en la aplicación.
+// Las propiedades son:
+// - id?: string; Identificador único del post, opcional.
+// - title: string; Título del post.
+// - content: string; Contenido principal del post.
+// - detail: string; Detalles adicionales del post.
+// - userId: string; Identificador único del usuario que creó el post.
+// - username: string; Nombre de usuario del usuario que creó el post.
+// - timestamp: number; Marca de tiempo del post, representando el momento de su creación.
 export interface Post {
     id?: string;
     title: string;
@@ -6,5 +15,6 @@ export interface Post {
     userId: string;
     username: string;
     timestamp: number;
-    // Agrega aquí cualquier otra propiedad que necesites para tus posts
+    profilePicture?: string;
+    // Aquí se pueden agregar más propiedades según las necesidades específicas de los posts.
 }

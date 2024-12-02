@@ -5,28 +5,40 @@
 </ion-header>
 
 <ion-content>
+  <!-- Esta sección lista todos los comentarios disponibles -->
   <ion-list>
     <ion-item *ngFor="let comment of comments">
+      <!-- Muestra la imagen de perfil del usuario que hizo el comentario -->
       <ion-avatar slot="start">
         <img [src]="comment.profilePicture" />
       </ion-avatar>
+      <!-- Muestra el nombre de usuario y el texto del comentario -->
       <ion-label>
         <h2>{{ comment.username }}</h2>
-        <p>{{ comment.text }}</p>
+        <p *ngIf="!comment.isEditing">{{ comment.text }}</p>
+        <ion-input *ngIf="comment.isEditing" [(ngModel)]="comment.newText" placeholder="Nuevo texto del comentario"></ion-input>
       </ion-label>
+      <ion-button *ngIf="!comment.isEditing" (click)="enableEdit(comment)">Actualizar</ion-button>
+      <ion-button *ngIf="comment.isEditing && comment.id && comment.newText" (click)="updateComment(comment.id, { text: comment.newText })">Guardar</ion-button>
+      <ion-button *ngIf="comment.id" (click)="deleteComment(comment.id)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
 
+  <!-- Esta sección permite al usuario agregar un nuevo comentario -->
   <ion-item>
     <ion-input [(ngModel)]="newCommentText" placeholder="Escribe un comentario..."></ion-input>
+    <!-- Botón para agregar el comentario -->
     <ion-button (click)="addComment()">Comentar</ion-button>
   </ion-item>
 
+  <!-- Esta sección maneja la carga infinita de comentarios -->
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreComments($event)">
+    <!-- Contenido de carga infinita, incluyendo un indicador de carga -->
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más comentarios...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
+  <!-- Esta sección muestra un mensaje de error si hay alguno -->
   <ion-item *ngIf="errorMessage" color="danger">
     <ion-label>{{ errorMessage }}</ion-label>
   </ion-item>

@@ -2,6 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { getAuth } from '@angular/fire/auth';
+import { EmailAuthProvider } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile',
@@ -64,20 +66,26 @@ export class ProfilePage {
       const { displayName, email, password } = this.profileForm.value;
       const user = await this.afAuth.currentUser;
 
-      if (user) {
+      if (user && user.email) {
         try {
           await user.updateProfile({ displayName });
-          await user.updateEmail(email);
+          if (user.email !== email) {
+            const credential = EmailAuthProvider.credential(user.email, this.profileForm.value.password);
+            await user.reauthenticateWithCredential(credential);
+            await user.updateEmail(email);
+          }
           if (password) {
             await user.updatePassword(password);
           }
           alert('Perfil actualizado con éxito');
           this.editMode = false;
           this.loadUserProfile();
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error al actualizar el perfil:', error);
-          alert('Error al actualizar el perfil');
+          alert(`Error al actualizar el perfil: ${error.message || error}`);
         }
+      } else {
+        alert('No se puede actualizar el perfil: correo electrónico no disponible');
       }
     }
   }

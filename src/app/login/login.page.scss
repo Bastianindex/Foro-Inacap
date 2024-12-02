@@ -1,52 +1,61 @@
+/* Estilos para el contenido de la página de inicio de sesión */
 .login-content {
-  --background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  --background: #f0f0f0; /* Color de fondo */
+  display: flex; /* Muestra los elementos como un contenedor flexible */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  height: 100%; /* Establece la altura del contenedor al 100% de su contenedor padre */
 
+  /* Estilos para el contenedor de inicio de sesión */
   .login-container {
-    padding: 16px;
+    padding: 16px; /* Espacio de relleno */
   }
 
+  /* Estilos para el encabezado de inicio de sesión */
   .login-header {
-    text-align: center;
-    margin-bottom: 24px;
+    text-align: center; /* Centra el texto */
+    margin-bottom: 24px; /* Margen inferior */
 
+    /* Estilos para el logotipo de inicio de sesión */
     .login-logo {
-      max-width: 100px;
-      margin-bottom: 16px;
+      max-width: 100px; /* Ancho máximo */
+      margin-bottom: 16px; /* Margen inferior */
     }
   }
 }
 
+/* Estilos adicionales para el contenedor de inicio de sesión */
 .login-container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 400px;
+  background: #fff; /* Color de fondo */
+  padding: 20px; /* Espacio de relleno */
+  border-radius: 10px; /* Radio de esquina */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  width: 90%; /* Ancho */
+  max-width: 400px; /* Ancho máximo */
 }
 
+/* Estilos adicionales para el encabezado de inicio de sesión */
 .login-header {
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: center; /* Centra el texto */
+  margin-bottom: 20px; /* Margen inferior */
 }
 
+/* Estilos adicionales para el logotipo de inicio de sesión */
 .login-logo {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
+  width: 100px; /* Ancho */
+  height: 100px; /* Alto */
+  margin-bottom: 10px; /* Margen inferior */
 }
 
+/* Estilos para el pie de página de inicio de sesión */
 .login-footer {
-  text-align: center;
-  margin-top: 20px;
+  text-align: center; /* Centra el texto */
+  margin-top: 20px; /* Margen superior */
 }
 
+/* Estilos para los enlaces del pie de página de inicio de sesión */
 .login-footer a {
-  color: #3880ff;
-  text-decoration: none;
-  margin: 0 10px;
+  color: #3880ff; /* Color del texto */
+  text-decoration: none; /* Elimina la decoración del texto */
+  margin: 0 10px; /* Margen */
 }

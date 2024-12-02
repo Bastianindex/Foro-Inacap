@@ -1,0 +1,31 @@
+.tweet-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px 0;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tweet-user-info {
+  margin-left: 10px;
+}
+
+.tweet-username {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.tweet-timestamp {
+  color: gray;
+  font-size: 0.8em;
+}
+
+.tweet-content p {
+  margin: 5px 0;
+}

@@ -8,17 +8,28 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card *ngIf="post">
-    <ion-card-header>
-      <ion-card-subtitle>{{ post.username }} - {{ post.timestamp | date:'medium' }}</ion-card-subtitle>
-      <ion-card-title>{{ post.title }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ post.content }}</p>
-      <p>{{ post.detail }}</p>
-    </ion-card-content>
-  </ion-card>
+  <!-- Esta sección muestra el contenido del post si existe -->
+  <div *ngIf="post" class="tweet-card">
+    <div class="tweet-header">
+      <ion-avatar slot="start">
+        <img [src]="post.profilePicture || 'assets/default-avatar.png'" />
+      </ion-avatar>
+      <div class="tweet-user-info">
+        <span class="tweet-username">{{ post.username }}</span>
+        <span class="tweet-timestamp">{{ post.timestamp | date:'medium' }}</span>
+      </div>
+    </div>
+    <div class="tweet-content">
+      <p *ngIf="!isEditing">{{ post.content }}</p>
+      <ion-textarea *ngIf="isEditing" [(ngModel)]="post.content" rows="6"></ion-textarea>
+      <p *ngIf="!isEditing">{{ post.detail }}</p>
+      <ion-input *ngIf="isEditing" [(ngModel)]="post.detail"></ion-input>
+    </div>
+    <ion-button *ngIf="!isEditing" (click)="enableEdit()">Editar</ion-button>
+    <ion-button *ngIf="isEditing" (click)="saveEdit()">Guardar</ion-button>
+  </div>
 
+  <!-- Esta sección lista los comentarios del post -->
   <ion-list>
     <ion-list-header>
       <ion-label>Comentarios</ion-label>
@@ -34,8 +45,12 @@
     </ion-item>
   </ion-list>
 
+  <!-- Esta sección permite al usuario agregar un nuevo comentario -->
   <ion-item>
     <ion-input [(ngModel)]="newCommentText" placeholder="Escribe un comentario..."></ion-input>
     <ion-button (click)="addComment()">Comentar</ion-button>
   </ion-item>
+
+  
+  <ion-button (click)="deletePost()">Eliminar Post</ion-button>
 </ion-content>

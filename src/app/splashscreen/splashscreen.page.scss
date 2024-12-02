@@ -1,3 +1,10 @@
+// El siguiente código define el estilo de la página de inicio.
+// El contenedor principal se centra en la pantalla y tiene una altura del 100% de la ventana.
+// Dentro de este contenedor, hay un contenedor de logotipos que se centra y alinea en columnas.
+// La imagen del logotipo tiene un ancho máximo de 150px y un margen inferior de 20px.
+// El spinner de ion tiene un color de texto de negro.
+// El logotipo de la pantalla de inicio tiene un ancho y alto de 150px.
+
 .center-container {
     display: flex;
     justify-content: center;
